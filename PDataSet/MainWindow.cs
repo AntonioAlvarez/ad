@@ -29,7 +29,7 @@ public partial class MainWindow: Gtk.Window
 		
 		dbDataAdapter.SelectCommand = selectCommand;
 			/*para establecer el selectCommand si que deja establecerlos como una interfaz(IdbCommand)*/
-		DataSet dataSet = new DataSet( );/*podemos indicar 
+		DataSet dataSet = new DataSet();/*podemos indicar 
 		un nombre del DataSet,pero lo vamos a dejar sin rellenar
 		//el dataSet se puede rellenar de varias 
 		maneras pero lo vamos a rellenar con
@@ -37,11 +37,44 @@ public partial class MainWindow: Gtk.Window
        de conexion o una conexion)*/
 		
 		dbDataAdapter.Fill(dataSet);/*el dataSet tendra que ser rellenado con el contenido
-		de dbDataAdapter*/
+		de dbDataAdapter// el dataAdapter ya configurado rellena el dataSet*/
 		
 		Console.WriteLine("Tables.Count={0}",dataSet.Tables.Count);
+		foreach(DataTable dataTable in dataSet.Tables) 
+			show(dataTable);
+		
+		DataRow dataRow = dataSet.Tables[0].Rows[0];
+		dataRow ["nombre"]= DateTime.Now.ToString();
+		Console.WriteLine("Tabla con los cambios");
+		show (dataSet.Tables[0]);
+		
+		dbDataAdapter.Update (dataSet);
 	}
-
+	
+	private void show(DataTable dataTable)
+	{
+		/*para que una coleccion pueda 
+		 * formar parte de un foreach 
+		 * tiene que implementar la interfaz 
+		 * enumereable(solo tiene el metodo getEnumerator();)
+		 * el cual permite recorrer de uno en uno*/
+		
+		//primero recorro todas las columnas de la tabla y las sacamos por consola
+		foreach (DataColumn dataColumn in dataTable.Columns)
+			Console.WriteLine("Column.Name={0}",dataColumn.ColumnName);
+		
+		//
+		foreach (DataRow dataRow in dataTable.Rows){
+			foreach (DataColumn dataColumn in dataTable.Columns)
+				Console.Write ("[{0}={1}] ",dataColumn.ColumnName, dataRow[dataColumn]);
+			Console.WriteLine();
+		}
+			/*para acceder al dataRow una opcion es 
+			indicar el indice(un indice numerico o column name)-->dataRow ["id"]
+			*/
+			
+			/*si quiero hacerlo generalizado coger el de todas las columnas*/
+	}
 }
 
 
