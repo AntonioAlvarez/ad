@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PNhibernate/MainWindow.cs">
+    <Files>
+      <File FileName="PNhibernate/Main.cs" Line="8" Column="42" />
+      <File FileName="PNhibernate/Categoria.cs" Line="17" Column="3" />
+      <File FileName="PNhibernate/Categoria.hbm.xml" Line="14" Column="21" />
+      <File FileName="PNhibernate/hibernate.cfg.xml" Line="1" Column="1" />
+      <File FileName="PNhibernate/MainWindow.cs" Line="15" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

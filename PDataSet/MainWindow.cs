@@ -19,11 +19,12 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnExecuteActionActivated (object sender, System.EventArgs e)
 	{
-		IDbConnection/*esta es la interfaz*/ dbConnection = new NpgsqlConnection ("Server=localhost;Database=aula;User Id=dbprueba;Password=root");
-		IDbCommand selectCommand = dbConnection.CreateCommand();/*nos permite crear un comando*/
+		NpgsqlConnection/*esta es la interfaz*/ dbConnection = new NpgsqlConnection ("Server=localhost;Database=aula;User Id=dbprueba;Password=root");
+		NpgsqlCommand selectCommand = dbConnection.CreateCommand();/*nos permite crear un comando*/
 		selectCommand.CommandText = "select * from articulo";
 		IDbDataAdapter/*esta interfaz es la que implementan luego las clases DataAdapter concretas*/
-			dbDataAdapter = new NpgsqlDataAdapter();/*nos dan 
+			dbDataAdapter = new NpgsqlDataAdapter();
+				new NpgsqlCommandBuilder((NpgsqlDataAdapter)dbDataAdapter);/*nos dan 
 			varias alternativas para construir el dataAdapter
 			[todas requieren de objetos concretos ,no nos valen interfaces]*/
 		
@@ -35,7 +36,7 @@ public partial class MainWindow: Gtk.Window
 		maneras pero lo vamos a rellenar con
 		un DataAdapter(este necesita una cadena
        de conexion o una conexion)*/
-		
+		 
 		dbDataAdapter.Fill(dataSet);/*el dataSet tendra que ser rellenado con el contenido
 		de dbDataAdapter// el dataAdapter ya configurado rellena el dataSet*/
 		
@@ -47,6 +48,14 @@ public partial class MainWindow: Gtk.Window
 		dataRow ["nombre"]= DateTime.Now.ToString();
 		Console.WriteLine("Tabla con los cambios");
 		show (dataSet.Tables[0]);
+		
+		((NpgsqlDataAdapter)dbDataAdapter).RowUpdating += delegate(object dbDataAdapterSender, NpgsqlRowUpdatingEventArgs eventArgs){
+		     Console.WriteLine ("RowUpdating command.CommandText={0}",eventArgs.Command.CommandText);
+		                                                           
+		     foreach(IDataParameter dataParameter in eventArgs.Command.Parameters)
+		     Console.WriteLine("{0}={1}", dataParameter.ParameterName,dataParameter.Value);
+		
+		};
 		
 		dbDataAdapter.Update (dataSet);
 	}
