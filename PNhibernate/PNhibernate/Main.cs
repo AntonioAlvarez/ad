@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace PNhibernate
+namespace Serpis.Ad
 {
 	class MainClass
 	{

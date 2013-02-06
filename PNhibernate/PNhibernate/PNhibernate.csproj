@@ -60,6 +60,7 @@
     <Reference Include="NHibernate">
       <HintPath>..\..\..\..\Escritorio\compartida\NHibernate-3.3.2.GA-bin\Required_Bins\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Npgsql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -73,10 +74,13 @@
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Categoria.cs" />
+    <Compile Include="Articulo.cs" />
+    <Compile Include="gtk-gui\Serpis.Ad.Articulo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="Categoria.hbm.xml" />
     <None Include="hibernate.cfg.xml" />
+    <None Include="Articulo.hbm.xml" />
+    <None Include="Categoria.hbm.xml" />
   </ItemGroup>
 </Project>
