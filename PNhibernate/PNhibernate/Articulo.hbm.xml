@@ -10,6 +10,8 @@
 		</id>
 		<property name="Nombre"/>
 	    <property name="Precio"/>
+		<!--mapeamos propiedad categoria..-->
+		<many-to-one name="Categoria"/>
 	</class> 
 </hibernate-mapping>
 
